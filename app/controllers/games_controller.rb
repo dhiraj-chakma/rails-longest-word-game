@@ -7,7 +7,7 @@ class GamesController < ApplicationController
   end
 
   def score
-    url = "https://wagon-dictionary.herokuapp.com/#{:word}"
+    url = "https://wagon-dictionary.herokuapp.com/#{params[:word]}"
     validWord = URI.open(url).read
     ans = JSON.parse(validWord)
     @wordList = params[:token]
@@ -16,14 +16,15 @@ class GamesController < ApplicationController
 
     @word.each_char do |ch|
       if @wordList.include?(ch) == false
-        @result = "the word you write include character outside list"
+        @result = "the word you write is outside of provided list"
+        return @result
       end
     end
 
     if ans["found"]
-      @result = "congratulation! #{:word} is a valid word"
+      @result = "congratulation! #{params[:word]} is a valid word"
     else
-      @result = "sorry! #{:word} is not a valid word"
+      @result = "sorry! #{params[:word]} is not a valid word"
     end
   end
 end

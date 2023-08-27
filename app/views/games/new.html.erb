@@ -1,0 +1,13 @@
+  <h1>New game</h1>
+
+  <h3> <%= @letters %> </h3>
+
+  <p> what is the longest word you can think of?</p>
+
+  <form action = "/score" method = "get" data-turbo = "false">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <input id= "token" name = "token" type = "hidden" value = "<%= @letters %>">
+    <input type ="text" name = "word" placeholder = "write the word">
+    <input type = "submit">
+  </form>
+  
